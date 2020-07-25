@@ -1,9 +1,14 @@
 from datetime import datetime
 from hashlib import md5
-from app import db, login
+from app import app,db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
+#association table for the many to many relationship that tracks folowers/followed
+followers = db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
 
 class User(UserMixin, db.Model):
     #user properties
@@ -30,12 +35,19 @@ class User(UserMixin, db.Model):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
 
+#declare many to many relatonship
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')    
+
 #each user has an id
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-
+#one to many relationship between users and posts, user_id is the foreign key
 class Post(db.Model):
     #post properties
     id = db.Column(db.Integer, primary_key=True)
@@ -46,3 +58,4 @@ class Post(db.Model):
     #print function
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+    
