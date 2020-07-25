@@ -54,5 +54,8 @@ class EditProfileForm(FlaskForm):
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
 
-
+#change to button redirecting to page so can create new proj
+class PostForm(FlaskForm):
+    post = TextAreaField('Questions,Thoughts, Comments, etc',validators=[DataRequired(),Length(min=1,max=140)])
+    submit=SubmitField('Submit')
 

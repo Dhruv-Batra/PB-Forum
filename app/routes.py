@@ -3,8 +3,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, EmptyForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, EmptyForm, PostForm
+from app.models import User,Post
 
 #executed before view function
 @app.before_request
@@ -14,20 +14,25 @@ def before_request():
         db.session.commit()
 
 #view function for index
-@app.route('/')
-@app.route('/index')
+@app.route('/',methods=['GET','POST'])
+@app.route('/index',methods=['GET','POST'])
+@login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'Vy'},
-            'body': 'OMG OHILL IS AMAZING'
-        },
-        {
-            'author': {'username': 'Jay'},
-            'body': 'Ohill kinda sucks!'
-        }
-    ]
-    return render_template('index.html', title='Home', posts=posts)
+    posts = current_user.followed_posts().all()
+    return render_template('index.html', title='Home',posts=posts)
+
+@app.route('/forum',methods=['GET','POST'])
+@login_required
+def forum():
+    form=PostForm()
+    if form.validate_on_submit():
+        post=Post(body=form.post.data,author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('forum'))
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('forum.html', title='Forum',form=form,posts=posts)
 
 #view function for login
 @app.route('/login', methods=['GET', 'POST'])
@@ -73,16 +78,12 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
+    posts = Post.query.order_by(Post.timestamp.desc()).filter_by(user_id=user.id)
     form=EmptyForm()
     return render_template('user.html', user=user, posts=posts, form=form)
 
 #view function for edit profile page
 @app.route('/edit_profile', methods=['GET', 'POST'])
-@login_required
 def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
