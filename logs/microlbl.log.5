@@ -1,0 +1,147 @@
+2020-07-25 00:33:53,146 ERROR: Exception on /edit_profile [POST] [in c:\python38\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1277, in _execute_context
+    self.dialect.do_execute(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: user.username
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\python38\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\python38\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\python38\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\python38\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\python38\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\python38\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "c:\python38\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "C:\Users\dhruv\microlbl\app\routes.py", line 90, in edit_profile
+    db.session.commit()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 1042, in commit
+    self.transaction.commit()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 504, in commit
+    self._prepare_impl()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 483, in _prepare_impl
+    self.session.flush()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 2523, in flush
+    self._flush(objects)
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 2664, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "c:\python38\lib\site-packages\sqlalchemy\util\langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "c:\python38\lib\site-packages\sqlalchemy\util\compat.py", line 178, in raise_
+    raise exception
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 2624, in _flush
+    flush_context.execute()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 586, in execute
+    persistence.save_obj(
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\persistence.py", line 230, in save_obj
+    _emit_update_statements(
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\persistence.py", line 994, in _emit_update_statements
+    c = cached_connections[connection].execute(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1014, in execute
+    return meth(self, multiparams, params)
+  File "c:\python38\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1127, in _execute_clauseelement
+    ret = self._execute_context(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1317, in _execute_context
+    self._handle_dbapi_exception(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1511, in _handle_dbapi_exception
+    util.raise_(
+  File "c:\python38\lib\site-packages\sqlalchemy\util\compat.py", line 178, in raise_
+    raise exception
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1277, in _execute_context
+    self.dialect.do_execute(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.username
+[SQL: UPDATE user SET username=?, about_me=? WHERE user.id = ?]
+[parameters: ('Chris', '', 2)]
+(Background on this error at: http://sqlalche.me/e/13/gkpj)
+2020-07-25 00:34:31,293 INFO: Microlbl startup [in C:\Users\dhruv\microlbl\app\__init__.py:41]
+2020-07-25 00:34:42,704 ERROR: Exception on /edit_profile [POST] [in c:\python38\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1277, in _execute_context
+    self.dialect.do_execute(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: user.username
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\python38\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\python38\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\python38\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\python38\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\python38\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\python38\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "c:\python38\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "C:\Users\dhruv\microlbl\app\routes.py", line 90, in edit_profile
+    db.session.commit()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 1042, in commit
+    self.transaction.commit()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 504, in commit
+    self._prepare_impl()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 483, in _prepare_impl
+    self.session.flush()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 2523, in flush
+    self._flush(objects)
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 2664, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "c:\python38\lib\site-packages\sqlalchemy\util\langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "c:\python38\lib\site-packages\sqlalchemy\util\compat.py", line 178, in raise_
+    raise exception
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\session.py", line 2624, in _flush
+    flush_context.execute()
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 586, in execute
+    persistence.save_obj(
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\persistence.py", line 230, in save_obj
+    _emit_update_statements(
+  File "c:\python38\lib\site-packages\sqlalchemy\orm\persistence.py", line 994, in _emit_update_statements
+    c = cached_connections[connection].execute(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1014, in execute
+    return meth(self, multiparams, params)
+  File "c:\python38\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1127, in _execute_clauseelement
+    ret = self._execute_context(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1317, in _execute_context
+    self._handle_dbapi_exception(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1511, in _handle_dbapi_exception
+    util.raise_(
+  File "c:\python38\lib\site-packages\sqlalchemy\util\compat.py", line 178, in raise_
+    raise exception
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\base.py", line 1277, in _execute_context
+    self.dialect.do_execute(
+  File "c:\python38\lib\site-packages\sqlalchemy\engine\default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.username
+[SQL: UPDATE user SET username=?, about_me=? WHERE user.id = ?]
+[parameters: ('Chris', '', 2)]
+(Background on this error at: http://sqlalche.me/e/13/gkpj)

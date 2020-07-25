@@ -6,14 +6,14 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app.models import User
 
-
-@app.before_request #executed before view function
+#executed before view function
+@app.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
-
+#view function for index
 @app.route('/')
 @app.route('/index')
 def index():
@@ -29,7 +29,7 @@ def index():
     ]
     return render_template('index.html', title='Home', posts=posts)
 
-
+#view function for login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -47,13 +47,13 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
-
+#view function for logout
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
+#view function for register
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -68,7 +68,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-
+#view function for profile page
 @app.route('/user/<username>')
 @login_required
 def user(username):
@@ -79,11 +79,11 @@ def user(username):
     ]
     return render_template('user.html', user=user, posts=posts)
 
-
+#view function for edit profile page
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm()
+    form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
