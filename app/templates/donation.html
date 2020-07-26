@@ -2,14 +2,14 @@
 
 {% block app_content %}
     {%if current_user.is_anonymous%}
-    <h1>Please consider supporting us with a donation!</h1>
+    <h1>Please consider supporting the movement with a donation!</h1>
     {%else%}
-    <h1>Hi {{ current_user.username }}, please consider supporting BLM with a donation!</h1>
+    <h1>Hi {{ current_user.username }}, please consider supporting the movement with a donation!</h1>
     {%endif%}
     <div>
         <a class="donate-with-crypto"
            href="https://commerce.coinbase.com/checkout/6da189f179bc31">
-        <button><span>Donate with Crypto</span></button></a>
+        <button><span>Buy the Web Devs A Coffee</span></button></a>
         <script src="https://commerce.coinbase.com/v1/checkout.js">
         </script>
       </div>
