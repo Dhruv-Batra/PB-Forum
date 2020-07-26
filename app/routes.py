@@ -25,7 +25,7 @@ def index():
         if posts.has_next else None
     prev_url = url_for('index', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('index.html', title='Home',posts=posts.items,next_url=next_url,prev_url=prev_url)
+    return render_template('index.html', title='Home',posts=posts.items,next_url=next_url,prev_url=prev_url,numb=0)
 
 @app.route('/forum',methods=['GET','POST'])
 @login_required
@@ -43,7 +43,7 @@ def forum():
         if posts.has_next else None
     prev_url = url_for('forum', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('forum.html', title='Forum',form=form,posts=posts.items,next_url=next_url,prev_url=prev_url)
+    return render_template('forum.html', title='Explore',form=form,posts=posts.items,next_url=next_url,prev_url=prev_url,numb=0)
 
 #view function for login
 @app.route('/login', methods=['GET', 'POST'])
@@ -97,7 +97,7 @@ def user(username):
     prev_url = url_for('user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
     form = EmptyForm()
-    return render_template('user.html', user=user, posts=posts.items,next_url=next_url, prev_url=prev_url, form=form)
+    return render_template('user.html', user=user, posts=posts.items,next_url=next_url, prev_url=prev_url, form=form,numb=0)
 
 #view function for edit profile page
 @app.route('/edit_profile', methods=['GET', 'POST'])

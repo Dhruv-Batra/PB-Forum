@@ -7,6 +7,7 @@ from logging.handlers import SMTPHandler
 from config import Config
 import os
 from logging.handlers import RotatingFileHandler
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -14,6 +15,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
+bootstrap=Bootstrap(app)
 
 #sends error email notification to admins if debug is off, for use in production environment
 #creates logs for server starts, info, warnings, errors, etc

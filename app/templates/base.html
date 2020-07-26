@@ -1,4 +1,42 @@
-<html>
+{%extends 'bootstrap/base.html'%}
+
+{%block title%}
+    {% if title %}
+        {{ title }} - Police Brutality Forum
+    {% else %}
+        Welcome to Police Brutality Forum
+    {% endif %}
+{%endblock%}
+
+{%block navbar%}
+    <nav class="navbar navbar-default">
+        Police Brutality Forum:
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{url_for('forum')}}">Explore</a>
+        <a href="{{url_for('donation')}}">Donate</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+    </nav>
+{%endblock%}
+
+{%block content%}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {%block app_content%}{%endblock%}
+    </div>
+{%endblock%}
+
+<!--BASE BEFORE FACELIFT:
     <head>
         {% if title %}
         <title>{{ title }} - Microblog</title>
@@ -29,6 +67,6 @@
         </ul>
         {% endif %}
         {% endwith %}
-        {% block content %}{% endblock %}
+        
     </body>
-</html>
+</html>-->
