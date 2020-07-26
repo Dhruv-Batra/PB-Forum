@@ -16,3 +16,5 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     #list of admins to get error notifications - add to list as needed
     ADMINS = ['dhruvbatra2@gmail.com']
+    POSTS_PER_PAGE=25
+    

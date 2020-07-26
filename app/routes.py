@@ -5,6 +5,7 @@ from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, EmptyForm, PostForm
 from app.models import User,Post
+from config import Config
 
 #executed before view function
 @app.before_request
@@ -18,8 +19,13 @@ def before_request():
 @app.route('/index',methods=['GET','POST'])
 @login_required
 def index():
-    posts = current_user.followed_posts().all()
-    return render_template('index.html', title='Home',posts=posts)
+    page = request.args.get('page',1,type=int)
+    posts = current_user.followed_posts().paginate(page,app.config['POSTS_PER_PAGE'],False)
+    next_url = url_for('index',page=posts.next_num)\
+        if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template('index.html', title='Home',posts=posts.items,next_url=next_url,prev_url=prev_url)
 
 @app.route('/forum',methods=['GET','POST'])
 @login_required
@@ -31,8 +37,13 @@ def forum():
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('forum'))
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('forum.html', title='Forum',form=form,posts=posts)
+    page = request.args.get('page',1,type=int)
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(page,app.config['POSTS_PER_PAGE'],False)
+    next_url = url_for('forum', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('forum', page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template('forum.html', title='Forum',form=form,posts=posts.items,next_url=next_url,prev_url=prev_url)
 
 #view function for login
 @app.route('/login', methods=['GET', 'POST'])
@@ -78,9 +89,15 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.order_by(Post.timestamp.desc()).filter_by(user_id=user.id)
-    form=EmptyForm()
-    return render_template('user.html', user=user, posts=posts, form=form)
+    page = request.args.get('page', 1, type=int)
+    posts = user.posts.order_by(Post.timestamp.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('user', username=user.username, page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('user', username=user.username, page=posts.prev_num) \
+        if posts.has_prev else None
+    form = EmptyForm()
+    return render_template('user.html', user=user, posts=posts.items,next_url=next_url, prev_url=prev_url, form=form)
 
 #view function for edit profile page
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -135,3 +152,10 @@ def unfollow(username):
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
+
+#view function for donation page - switch to payment plan
+@app.route('/donation')
+def donation():
+    return render_template('donation.html',title='Donate!')
+
+

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {%if current_user.is_anonymous%}
+    <h1>Please consider supporting us with a donation!</h1>
+    {%else%}
+    <h1>Hi {{ current_user.username }}, please consider supporting us with a donation!</h1>
+    {%endif%}
+    <div>
+        <a class="donate-with-crypto"
+           href="https://commerce.coinbase.com/checkout/6da189f179bc31">
+          <span>Donate with Crypto</span>
+        </a>
+        <script src="https://commerce.coinbase.com/v1/checkout.js">
+        </script>
+      </div>
+{%endblock%}
