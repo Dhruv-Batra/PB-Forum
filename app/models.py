@@ -77,4 +77,5 @@ class Post(db.Model):
     #print function
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
     
