@@ -3,10 +3,12 @@
 
 {% block app_content %}
     {%if current_user.is_anonymous%}
-    <h1>Welcome to IMG Label Online!</h1>
+    <h1>Welcome to the Police Brutality Forum!</h1>
     {%else%}
     <h1>Hi, {{ current_user.username }}!</h1>
     {%endif%}
+    <p>This forum was made to help support the Black Lives Matter Movement. Here you will find a forum where anyone and everyone can share their experiences with police brutality. People can also share important resources they believe supporters should see.</p>
+    <hr>
     <form action = "" method="post">
         {{form.hidden_tag()}}
         <p>

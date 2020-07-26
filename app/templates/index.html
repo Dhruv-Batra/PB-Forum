@@ -2,7 +2,7 @@
 
 {% block app_content %}
     {%if current_user.is_anonymous%}
-    <h1>Welcome to IMG Label Online!</h1>
+    <h1>Welcome Anonymous User</h1>
     {%else%}
     <h1>Hi, {{ current_user.username }}!</h1>
     {%endif%}
