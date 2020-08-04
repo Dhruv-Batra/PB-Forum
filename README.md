@@ -6,3 +6,18 @@ People can also share important resources they believe supporters should see.
 
 I made this website with aid from a tutorial by Miguel Grinberg. It is an amazing resource for learning how to use flask! I would highly reccomend it!
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+
+Steps to test PB-Forum:
+1. Download the zipfile for this repo from GitHub and unzip it
+2. Open up a command line (for windows: click windows button and type cmd)
+3. Navigate to the folder within the unzipped folder (windows example: cd Downloads/PB-Forum-Master/PB-Forum-Master)
+4. if Windows: set FLASK_APP=microblog.py 
+   if MAC: export FLASK_APP=microblog.py
+5. Enter the following command within your command line: flask run
+6. Open up a browser and go to http://localhost:5000/
+
+Trouble shooting:
+
+  Error: The CSRF tokens do not match.
+  Soulution: Make sure you are not blocking cookies on http://localhost:5000/
+
