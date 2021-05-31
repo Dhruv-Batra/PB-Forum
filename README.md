@@ -4,8 +4,6 @@ This forum was made to help support the Black Lives Matter Movement.
 Here you will find a forum where anyone and everyone can share their experiences with police brutality. 
 People can also share important resources they believe supporters should see.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kwU4P2t0dZs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/kwU4P2t0dZs/0.jpg)](http://www.youtube.com/watch?v=kwU4P2t0dZs "Police Brutality Forum")
 
 For more details on this project refer to: https://devpost.com/software/police-brutality-forum  
